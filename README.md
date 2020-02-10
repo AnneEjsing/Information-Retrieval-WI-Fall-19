@@ -48,7 +48,7 @@ The implementation of pagerank is currently a little wonky, as it will return -i
 
 <h2>Search Engine</h2>
 
-***Document Representation***
+**Document Representation**
 
 Before being able to index the pages that we previously crawled, we must decide on a way to represent the content of each page/document. This includes several preprocessing steps. These are all described in the following.
 
@@ -65,15 +65,15 @@ For this project Porter's Stemming Algorithm is the one of choice to perform ste
 
 Lastly, all the remaining tokens are reduced to *lower case*. This is because we will not differentiate between upper and lower case letters.
 
-***Indexing***
+**Indexing**
 
 For indexing using the boolean retrieval model as well as the vector space model, the data structure used to represent the index is an inverted index. This means that, for each term, we store a list of all document ids that contain that term. This model can be extended and improved in several ways, but none I will touch upon here.
 
-**Boolean Retrieval Model**
+*Boolean Retrieval Model*
 
 With the boolean retrieval model we want to be able to formulate a query as a boolean expression and find the documents that satisfies the condition. To compute this we construct the inverted index and use this look up the documents that contain the term that is searched for. Queries can be composed using AND, OR and NOT to perform more advanced queries. For example, with an AND query the intersection of the documents that satisfy the first part and the documents that satisfy the second part of the query would be those to return. This is thus a simple model based on set theory and boolean algebra, however it has certain pitfalls. Firstly, documents either match a query or they don't. It is often diccicult to define a query that will match a reasonsbale number or documents. Furthermore, most users are incapable of writing the boolean queries they need, and it may therefor be unusable. Though, for experts it may suit their needs. Instead, we look into content based ranking using the vector space model below.
 
-**Vector Space Model**
+*Vector Space Model*
 
 With the vector space model all documents are modeled as vectors, where terms are the entries in the N dimensional vector space. These vectors are very high-dimensional and very sparse, as a document only contain a small subset of the entire vocabulary. Instead of each entry in the vector being merely a boolean 1 or 0 if the term is present in the document or not, we represent each term using the tf-idf weighting scheme. The tf-idf weighting scheme is a popular weighting scheme in information retrieval. Tf-idf is a value that describes a term in a collection of documents. The tf-idf value of a term increases with the number of occurrences within a document and with the rarity of the term in the collection. Therefore, a term occurring multiple times within a given document while occurring few times across all documents receives a high tf-idf score for that document. The tf-idf score of a term is computed based on the term frequency (tf) in that text and the inverted document frequency (idf), which is the inverse of the number of documents that contain the term. This means the tf is defined for the term per document and the idf is defined per term.
 
